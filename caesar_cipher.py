@@ -49,7 +49,11 @@ def encrypt(plaintext, mode):
 
 
 def decrypt(ciphertext, mode):
-    return __shift_letters("sub", args.mode, ciphertext)
+    ciphertext, whitespaces, uppercase_letters = format_message(ciphertext)
+    plain = list(__shift_letters("sub", args.mode, ciphertext))
+    plain = [plain.insert(index, ' ') for index in whitespaces]
+    plain = [plain[index].upper() for index in uppercase_letters]
+    return plain
 
 
 if __name__ == '__main__':
